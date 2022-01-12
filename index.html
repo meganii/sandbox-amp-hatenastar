@@ -1,43 +1,56 @@
-<div id="hatena-star-container"></div>
-<script>
-window.addEventListener('message', receiveMessage, false);
-function receiveMessage(event)
-{
-    if (event.data) {
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>amp-iframe hatena</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script type="text/javascript" src="https://s.hatena.ne.jp/js/HatenaStar.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div style="display:none">
+      <h1 id="title">Title</h1>
+      <a href="https://sandbox-amp-hatenastar.vercel.app/"></a>
+    </div>
+    <div id="hatena-star-container"></div>
+  </div>
+  <script>
+    window.addEventListener('message', receiveMessage, false);
+    function receiveMessage(event) {
+      if (event.data) {
         var msg;
         try {
-            msg = JSON.parse(event.data);
+          msg = JSON.parse(event.data);
         } catch (err) {
-            // Do nothing
+          // Do nothing
         }
         if (!msg)
-            return false;
+          return false;
 
         if (msg.name === 'resize' || msg.name === 'rendered') {
-            window.parent.postMessage({
-              sentinel: 'amp',
-              type: 'embed-size',
-              height: msg.data.height
-            }, '*');
+          window.parent.postMessage({
+            sentinel: 'amp',
+            type: 'embed-size',
+            height: msg.data.height
+          }, '*');
         }
+      }
     }
-}
-</script>
-<script>   
-    (function() {
-        var d = document, s = d.createElement('script');
-        s.type = 'text/javascript';
-        s.src = '//s.hatena.ne.jp/js/HatenaStar.js'; 
-        (d.head || d.body).appendChild(s);
-
-        Hatena.Star.SiteConfig = {
-            entryNodes: {
-                'article.post-single': {
-                    uri: 'window.location',
-                    title: 'document.title',
-                    container: 'div#hatena-star-container'
-                }
-            }
-        };
-    })();
-</script>
+  </script>
+  <script>
+      Hatena.Star.SiteConfig = {
+        entryNodes: {
+          'div.container': {
+            uri: 'window.location',
+            title: 'document.title',
+            container: 'div#hatena-star-container'
+          }
+        }
+      };
+  </script>
+</body>
+</html>
