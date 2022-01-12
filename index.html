@@ -29,11 +29,15 @@ function receiveMessage(event)
         s.type = 'text/javascript';
         s.src = '//s.hatena.ne.jp/js/HatenaStar.js'; 
         (d.head || d.body).appendChild(s);
-    })();
-    (function() {
-        var d = document, s = d.createElement('script'); 
-        s.type = 'text/javascript';
-        s.src = '/config.js'; 
-        (d.head || d.body).appendChild(s);
+
+        Hatena.Star.SiteConfig = {
+            entryNodes: {
+                'article.post-single': {
+                    uri: 'window.location',
+                    title: 'document.title',
+                    container: 'div#hatena-star-container'
+                }
+            }
+        };
     })();
 </script>
