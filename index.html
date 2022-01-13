@@ -11,12 +11,11 @@
 </head>
 
 <body>
-  <div class="container">
-    <div style="display:none">
-      <h1 id="title">Title</h1>
-      <a href="https://sandbox-amp-hatenastar.vercel.app/"></a>
-    </div>
-    <div id="hatena-star-container"></div>
+  <div id="container">
+    <div style="display: none;">
+    <a id="h-uri" href="https://sandbox-amp-hatenastar.vercel.app/"><h3 id="h-title">はてなスター</h3></a>
+  </div>
+    <div id="hatena-star-container" style="padding-top: 40px;"></div>
   </div>
   <script>
     window.addEventListener('message', receiveMessage, false);
@@ -44,13 +43,22 @@
   <script>
       Hatena.Star.SiteConfig = {
         entryNodes: {
-          'div.container': {
-            uri: 'window.location',
-            title: 'document.title',
+          'div#container': {
+            uri: 'a',
+            title: 'h3',
             container: 'div#hatena-star-container'
           }
         }
       };
+  </script>
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    var title = params.get("title");
+    var url = params.get("url");
+    console.log(title);
+    console.log(url);
+    document.querySelector("#h-title").innerText = title;
+    document.querySelector("#h-uri").href = url;
   </script>
 </body>
 </html>
