@@ -6,15 +6,18 @@
   <title>amp-iframe hatena</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://s.hatena.ne.jp/js/HatenaStar.js"></script>
 </head>
 
 <body>
   <div id="container">
     <div style="display: none;">
-    <a id="h-uri" href="https://sandbox-amp-hatenastar.vercel.app/"><h3 id="h-title">はてなスター</h3></a>
-  </div>
+      <a id="h-uri" href="https://sandbox-amp-hatenastar.vercel.app/">
+        <h3 id="h-title">はてなスター</h3>
+      </a>
+    </div>
     <div id="hatena-star-container" style="padding-top: 40px;"></div>
   </div>
   <script>
@@ -41,15 +44,15 @@
     }
   </script>
   <script>
-      Hatena.Star.SiteConfig = {
-        entryNodes: {
-          'div#container': {
-            uri: 'a',
-            title: 'h3',
-            container: 'div#hatena-star-container'
-          }
+    Hatena.Star.SiteConfig = {
+      entryNodes: {
+        'div#container': {
+          uri: 'a',
+          title: 'h3',
+          container: 'div#hatena-star-container'
         }
-      };
+      }
+    };
   </script>
   <script>
     var params = new URLSearchParams(window.location.search);
@@ -60,5 +63,16 @@
     document.querySelector("#h-title").innerText = title;
     document.querySelector("#h-uri").href = url;
   </script>
+  <script>
+    $(function(){
+      var shadowRoot = $("#hatena-star-container span")[0].shadowRoot;
+      shadowRoot.addEventListener('click', (e) =>{
+        e.preventDefault();
+        var a = $(e.target).parent()[0];
+        window.open(a.href, '_blank');
+      });
+    });
+  </script>
 </body>
+
 </html>
